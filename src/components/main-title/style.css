@@ -1,0 +1,15 @@
+.main-title {
+  padding-top: 150px;
+  width: 60%;
+}
+
+.main-title h2 {
+  width: 100%;
+  border: #4dc8d8 1px solid;
+  background-color: #132235;
+  font-size: 1.4em;
+  color: #6ddad3;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 20px 0;
+}

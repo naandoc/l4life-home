@@ -1,3 +1,9 @@
+import MainTitle from "@/components/main-title/main-title";
+
 export default function Home() {
-  return <h1>F4life-moradia</h1>;
+  return (
+    <>
+      <MainTitle />
+    </>
+  );
 }
