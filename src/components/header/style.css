@@ -1,8 +1,8 @@
 .main-header {
   height: 5rem;
   width: 100%;
-  background-color: #132235;
-  border-bottom: 1px solid rgb(8, 8, 61);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-main);
 
   display: flex;
   justify-content: space-around;
@@ -32,12 +32,11 @@
 }
 .main-menu a {
   font-size: 1.1em;
-  color: #fff;
-
-  padding: 2.2em 1.2em;
-
+  color: var(--color-primary);
+  padding: 1.4em 1.2em;
+  font-weight: 700;
   text-decoration: none;
 }
 .main-menu a:hover {
-  background-color: #9e9a9a10;
+  background-color: var(--hover);
 }
