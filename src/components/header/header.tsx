@@ -1,10 +1,17 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import "@/components/header/style.css";
 import ImgLogo from "../../../../imagens/logo-pequena.png";
-import Link from "next/link";
+
+function subMenuLogged() {
+  console.log("Entrou (lá ele)");
+}
 
 export default function Header() {
+  const [isLogged, setIsLogged] = useState(true);
+  const user = "Nando";
   return (
     <header className="main-header">
       <a href="#" className="link-img-logo">
@@ -18,27 +25,49 @@ export default function Header() {
           />
         </div>
       </a>
-      <div className="menu-toggle">
-        <div className="line1"></div>
-        <div className="line2"></div>
-        <div className="line3"></div>
-      </div>
       <nav>
         <ul className="main-menu">
           <li>
-            <a href="#">Início</a>
+            <a href="#" className="main-menu-a">
+              Início
+            </a>
           </li>
           <li>
-            <a href="#nossas-ofertas">Nossas ofertas</a>
+            <a href="#nossas-ofertas" className="main-menu-a">
+              Nossas ofertas
+            </a>
           </li>
           <li>
-            <a href="#quem-somos">Quem Somos</a>
+            <a href="#quem-somos" className="main-menu-a">
+              Quem Somos
+            </a>
           </li>
           <li>
-            <a href="#tipos-servicos">Alguns serviços</a>
+            <a href="#form-contato" className="main-menu-a">
+              Fale conosco
+            </a>
           </li>
-          <li>
-            <a href="#form-contato">Fale conosco</a>
+          <li className="btn-login">
+            {isLogged ? (
+              <>
+                <a href="" className="main-menu-a" onMouseEnter={subMenuLogged}>
+                  {user}
+                </a>
+                <ul className="span-logout">
+                  <li>
+                    <a href="">Minha conta</a>
+                  </li>
+                  <li>
+                    <a href="">Minhas casas</a>
+                  </li>
+                  <li>
+                    <a href="">Sair</a>
+                  </li>
+                </ul>
+              </>
+            ) : (
+              <a href="">Entrar</a>
+            )}
           </li>
         </ul>
       </nav>

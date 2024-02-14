@@ -1,6 +1,7 @@
 :root {
   --border-radius: 12px;
   --bg-secondary: #132235;
+  --bg-primary: #ece7e7;
   --border-main: rgb(8, 8, 61);
   --hover: #9e9a9a10;
   --color-primary: #6ddad3;
@@ -13,9 +14,8 @@
 
 html,
 body {
-  min-width: 100vw;
+  width: 100%;
   min-height: 100vh;
-
   display: flex;
   align-items: center;
   flex-direction: column;

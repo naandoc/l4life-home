@@ -5,7 +5,7 @@ import "./style.css";
 export default function SectionHouseContainer() {
   return (
     <section className="container">
-      <Subtitle title="Serviços disponíveis" />
+      <Subtitle title="Casas disponíveis" />
       <div className="house-container">
         <HouseCart />
         <HouseCart />
