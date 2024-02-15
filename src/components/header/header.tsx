@@ -4,13 +4,13 @@ import Image from "next/image";
 import React, { useState } from "react";
 import "@/components/header/style.css";
 import ImgLogo from "../../../../imagens/logo-pequena.png";
-
-function subMenuLogged() {
-  console.log("Entrou (lá ele)");
-}
+import Link from "next/link";
+import { RxDropdownMenu } from "react-icons/rx";
 
 export default function Header() {
   const [isLogged, setIsLogged] = useState(true);
+  const [subMenu, setSubMenu] = useState(false);
+
   const user = "Nando";
   return (
     <header className="main-header">
@@ -18,7 +18,7 @@ export default function Header() {
         <div>
           <Image
             src={ImgLogo}
-            alt="Logo F4LIFE"
+            alt="Logo F4life"
             className="img-logo"
             width={100}
             height={100}
@@ -47,13 +47,29 @@ export default function Header() {
               Fale conosco
             </a>
           </li>
+
+          {/* login/logout logic */}
           <li className="btn-login">
             {isLogged ? (
-              <>
-                <a href="" className="main-menu-a" onMouseEnter={subMenuLogged}>
+              <div>
+                <p
+                  className="main-menu-a"
+                  onMouseEnter={() => setSubMenu(true)}
+                  onMouseLeave={() => setSubMenu(false)}
+                >
                   {user}
-                </a>
-                <ul className="span-logout">
+                  <span>
+                    <RxDropdownMenu />
+                  </span>
+                </p>
+                <ul
+                  // two classes (submenu-display-on and submenu-display-off) to handle the submenu display with visibility attribute
+                  className={`submenu-logout ${
+                    subMenu ? "submenu-display-on" : "submenu-display-off"
+                  }`}
+                  onMouseEnter={() => setSubMenu(true)}
+                  onMouseLeave={() => setSubMenu(false)}
+                >
                   <li>
                     <a href="">Minha conta</a>
                   </li>
@@ -64,9 +80,11 @@ export default function Header() {
                     <a href="">Sair</a>
                   </li>
                 </ul>
-              </>
+              </div>
             ) : (
-              <a href="">Entrar</a>
+              <Link href="" className="main-menu-a">
+                Entrar
+              </Link>
             )}
           </li>
         </ul>
