@@ -1,17 +1,23 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import "@/components/header/style.css";
 import ImgLogo from "../../../../imagens/logo-pequena.png";
 import Link from "next/link";
+import { useAuth } from "@/context/CreateContext";
 import { RxDropdownMenu } from "react-icons/rx";
 
 export default function Header() {
-  const [isLogged, setIsLogged] = useState(true);
+  const { isLogged, setIsLogged } = useAuth();
   const [subMenu, setSubMenu] = useState(false);
 
   const user = "Nando";
+
+  const handleMouseEnter = useCallback(() => {
+    setSubMenu((prev) => !prev);
+  }, [setSubMenu]);
+
   return (
     <header className="main-header">
       <a href="#" className="link-img-logo">
@@ -54,8 +60,8 @@ export default function Header() {
               <div>
                 <p
                   className="main-menu-a"
-                  onMouseEnter={() => setSubMenu(true)}
-                  onMouseLeave={() => setSubMenu(false)}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseEnter}
                 >
                   {user}
                   <span>
@@ -67,8 +73,8 @@ export default function Header() {
                   className={`submenu-logout ${
                     subMenu ? "submenu-display-on" : "submenu-display-off"
                   }`}
-                  onMouseEnter={() => setSubMenu(true)}
-                  onMouseLeave={() => setSubMenu(false)}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseEnter}
                 >
                   <li>
                     <a href="">Minha conta</a>
@@ -82,7 +88,10 @@ export default function Header() {
                 </ul>
               </div>
             ) : (
-              <Link href="" className="main-menu-a">
+              <Link
+                href={`${isLogged ? "" : "/login"}`}
+                className="main-menu-a"
+              >
                 Entrar
               </Link>
             )}
