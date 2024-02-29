@@ -5,14 +5,13 @@ import React, { useCallback, useState } from "react";
 import "@/components/header/style.css";
 import ImgLogo from "../../../../imagens/logo-pequena.png";
 import Link from "next/link";
-import { useAuth } from "@/context/CreateContext";
 import { RxDropdownMenu } from "react-icons/rx";
 
 export default function Header() {
-  const { isLogged, setIsLogged } = useAuth();
   const [subMenu, setSubMenu] = useState(false);
 
   const user = "Nando";
+  const isLogged = false;
 
   const handleMouseEnter = useCallback(() => {
     setSubMenu((prev) => !prev);
