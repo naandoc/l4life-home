@@ -10,12 +10,12 @@ export default function LoginForm() {
           </div>
           <div className="field-inputs">
             <div className="field-label">
-              <label htmlFor="">Usuário</label>
-              <input type="text" />
+              <label htmlFor="username">Usuário</label>
+              <input type="text" id="username" />
             </div>
             <div className="field-label">
-              <label htmlFor="">Senha</label>
-              <input type="password" />
+              <label htmlFor="password">Senha</label>
+              <input type="password" id="password" />
             </div>
             <button type="submit">login</button>
             <div className="create-account">
