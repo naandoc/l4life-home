@@ -20,8 +20,6 @@ async function run() {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
-  } catch (err) {
-    console.log("no connected", err);
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
