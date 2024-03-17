@@ -3,9 +3,40 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  // ... you will write your Prisma Client queries here
-  const allUsers = await prisma.user.findMany();
-  console.log("database: ", allUsers);
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      username: "vamosnessa777",
+    },
+  });
+
+  if (existingUser) {
+    console.log(
+      "Usuário com este username já existe. Não foi possível criar um novo usuário."
+    );
+  } else {
+    await prisma.user.create({
+      data: {
+        name: "Rich",
+        username: "vamosnessa777",
+        password: "123456",
+        fullname: "José Wanderson Cavalcanti da Silva",
+        name: "Nando Cavalcanti",
+        apartments: {
+          create: {
+            imgs: ["teste"],
+            bgImg: "imagem de fundo",
+          },
+        },
+      },
+    });
+  }
+
+  const allUsers = await prisma.user.findMany({
+    include: {
+      apartments: true,
+    },
+  });
+  console.log("Usuários", allUsers);
 }
 
 main()

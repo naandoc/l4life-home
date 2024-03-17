@@ -1,23 +1,26 @@
 import Link from "next/link";
 import "@/components/login-form/style.css";
+import TitleForm from "../title-form/title-form";
+import FieldLabel from "../field-label/field-label";
+import BtnForm from "../btn-form/btn-form";
 export default function LoginForm() {
   return (
     <div className="form-container">
       <form action="">
         <div className="form-box">
-          <div className="form-title">
-            <h1>Login</h1>
-          </div>
+          <TitleForm title="Login" />
           <div className="field-inputs">
-            <div className="field-label">
-              <label htmlFor="username">Usuário</label>
-              <input type="text" id="username" required />
-            </div>
-            <div className="field-label">
-              <label htmlFor="password">Senha</label>
-              <input type="password" id="password" required />
-            </div>
-            <button type="submit">login</button>
+            <FieldLabel
+              labelName="Usuário"
+              inputType="text"
+              htmlFor="username"
+            />
+            <FieldLabel
+              labelName="Senha"
+              inputType="password"
+              htmlFor="password"
+            />
+            <BtnForm btnName="Login" />
             <div className="create-account">
               <p>
                 <Link href="/create-account">Criar uma conta</Link>
