@@ -1,10 +1,12 @@
 import React from "react";
 
 export default function FieldLabel({
+  handleChange,
   labelName,
   inputType,
   htmlFor,
 }: {
+  handleChange: any;
   labelName: string;
   inputType: string;
   htmlFor: string;
@@ -12,7 +14,13 @@ export default function FieldLabel({
   return (
     <div className="field-label">
       <label htmlFor={htmlFor}>{labelName}</label>
-      <input type={inputType} id={htmlFor} required />
+      <input
+        onChange={handleChange}
+        type={inputType}
+        id={htmlFor}
+        name={htmlFor}
+        required
+      />
     </div>
   );
 }

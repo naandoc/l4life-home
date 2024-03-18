@@ -16,7 +16,6 @@ async function main() {
   } else {
     await prisma.user.create({
       data: {
-        name: "Rich",
         username: "vamosnessa777",
         password: "123456",
         fullname: "José Wanderson Cavalcanti da Silva",
