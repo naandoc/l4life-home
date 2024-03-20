@@ -1,15 +1,20 @@
 import React from "react";
+import MsgErrorInput from "../msg-error-input/msg-error-input";
 
 export default function FieldLabel({
   handleChange,
   labelName,
   inputType,
   htmlFor,
+  pattern,
+  titlePattern,
 }: {
   handleChange: any;
   labelName: string;
   inputType: string;
   htmlFor: string;
+  pattern: string;
+  titlePattern: string;
 }) {
   return (
     <div className="field-label">
@@ -19,6 +24,8 @@ export default function FieldLabel({
         type={inputType}
         id={htmlFor}
         name={htmlFor}
+        pattern={pattern}
+        title={titlePattern}
         required
       />
     </div>

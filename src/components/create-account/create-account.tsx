@@ -5,6 +5,7 @@ import TitleForm from "../title-form/title-form";
 import FieldLabel from "../field-label/field-label";
 import BtnForm from "../btn-form/btn-form";
 import { UserProps } from "@/types/UserProps";
+import MsgErrorInput from "../msg-error-input/msg-error-input";
 
 export default function CreateAccount() {
   const [formData, setformData] = useState<UserProps>({
@@ -13,6 +14,8 @@ export default function CreateAccount() {
     username: "",
     password: "",
   });
+
+  const [existingUser, setExistingUser] = useState<boolean>(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setformData({
@@ -23,11 +26,35 @@ export default function CreateAccount() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
 
     try {
-      await axios.post("/api/users", formData);
-      console.log("Usuário cadastrado com sucesso");
+      // validation if there is already a registered username
+      const usernames = await axios.get("/api/users");
+
+      let userExists = false;
+
+      for (const user of usernames.data) {
+        if (
+          user.username.toLowerCase() === formData.username.toLocaleLowerCase()
+        ) {
+          userExists = true;
+          console.log("Achei! Usuário já existe");
+
+          const usernameInput = document.querySelector(
+            "#username"
+          ) as HTMLInputElement;
+          if (usernameInput) usernameInput.focus();
+
+          break;
+        }
+      }
+
+      if (!userExists) {
+        await axios.post("/api/create-users", formData);
+        console.log("Usuário cadastrado com sucesso");
+      } else {
+        setExistingUser(true);
+      }
     } catch (error) {
       console.log("Erro ao criar usuário", error);
     }
@@ -44,30 +71,43 @@ export default function CreateAccount() {
               labelName="Nome completo"
               inputType="text"
               htmlFor="fullname"
+              pattern="^[a-zA-ZÀ-ÖØ-öø-ÿ\s]{6,50}$"
+              titlePattern="Nome incorreto"
             />
             <FieldLabel
               handleChange={handleChange}
               labelName="Como deseja ser chamado?"
               inputType="text"
               htmlFor="name"
+              pattern="^[a-zA-ZÀ-ÖØ-öø-ÿ\s]{2,20}$"
+              titlePattern="Digite um nome de 6 à 20 caracteres"
             />
             <FieldLabel
               handleChange={handleChange}
               labelName="Usuário"
               inputType="text"
               htmlFor="username"
+              pattern="^[a-z0-9]{6,16}$"
+              titlePattern="Seu usuário deve conter de 6 à 16 digitos, contendo somente letras e/ou números"
             />
             <FieldLabel
               handleChange={handleChange}
               labelName="Senha"
               inputType="password"
               htmlFor="password"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()-_+=~`[\]{}|\\:;<>,.?/]{8,20}$"
+              titlePattern="A senha deve ter entre 8 e 20 caracteres, pelo menos uma letra minúscula, uma letra maiúscula e um número."
             />
             <FieldLabel
               handleChange={null}
               labelName="Digite a senha novamente"
               inputType="password"
               htmlFor="password-confirm"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()-_+=~`[\]{}|\\:;<>,.?/]{8,20}$"
+              titlePattern="Sua senha deve ser igual a senha anterior"
+            />
+            <MsgErrorInput
+              msg={`${existingUser ? "Esse usuário já existe" : ""}`}
             />
             <BtnForm btnName="Criar conta" />
           </div>

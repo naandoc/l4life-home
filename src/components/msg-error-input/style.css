@@ -1,0 +1,7 @@
+.msg-error-input {
+  font-size: 0.9rem;
+  font-style: italic;
+  text-decoration: underline;
+  font-weight: 600;
+  color: var(--color-form-btn);
+}
