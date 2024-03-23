@@ -1,5 +1,4 @@
 import React from "react";
-import MsgErrorInput from "../msg-error-input/msg-error-input";
 
 export default function FieldLabel({
   handleChange,

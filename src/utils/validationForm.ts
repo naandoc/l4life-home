@@ -1,8 +1,4 @@
-export function validateIptName(name: string) {
-  const regex = /^[a-zA-Z\s]{6,50}$/;
-  if (regex.test(name)) {
-    return true;
-  } else {
-    return false;
-  }
+export function validatePassword(password: string, secondPassword: string) {
+  if (password === secondPassword) return true;
+  return false;
 }

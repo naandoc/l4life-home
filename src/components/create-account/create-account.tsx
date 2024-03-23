@@ -6,6 +6,7 @@ import FieldLabel from "../field-label/field-label";
 import BtnForm from "../btn-form/btn-form";
 import { UserProps } from "@/types/UserProps";
 import MsgErrorInput from "../msg-error-input/msg-error-input";
+import { validatePassword } from "@/utils/validationForm";
 
 export default function CreateAccount() {
   const [formData, setformData] = useState<UserProps>({
@@ -17,6 +18,10 @@ export default function CreateAccount() {
 
   const [existingUser, setExistingUser] = useState<boolean>(false);
 
+  const [passwordForm, setPasswordForm] = useState<boolean>(true);
+
+  const [isLoading, setIsloading] = useState<boolean>(false);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setformData({
       ...formData,
@@ -27,9 +32,26 @@ export default function CreateAccount() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // validation of form passwords
+    const password2 = document.querySelector(
+      "#password-confirm"
+    ) as HTMLInputElement;
+
+    const validationPassword = validatePassword(
+      formData.password,
+      password2.value
+    );
+    setPasswordForm(validationPassword);
+
+    if (!validationPassword) {
+      return;
+    }
+
     try {
+      setIsloading(true);
       // validation if there is already a registered username
       const usernames = await axios.get("/api/users");
+      setIsloading(false);
 
       let userExists = false;
 
@@ -38,7 +60,6 @@ export default function CreateAccount() {
           user.username.toLowerCase() === formData.username.toLocaleLowerCase()
         ) {
           userExists = true;
-          console.log("Achei! Usuário já existe");
 
           const usernameInput = document.querySelector(
             "#username"
@@ -50,8 +71,11 @@ export default function CreateAccount() {
       }
 
       if (!userExists) {
+        setIsloading(true);
         await axios.post("/api/create-users", formData);
-        console.log("Usuário cadastrado com sucesso");
+        setIsloading(false);
+        setExistingUser(false);
+        // redirect
       } else {
         setExistingUser(true);
       }
@@ -107,9 +131,12 @@ export default function CreateAccount() {
               titlePattern="Sua senha deve ser igual a senha anterior"
             />
             <MsgErrorInput
+              msg={`${passwordForm ? "" : "As senhas devem ser iguais"}`}
+            />
+            <MsgErrorInput
               msg={`${existingUser ? "Esse usuário já existe" : ""}`}
             />
-            <BtnForm btnName="Criar conta" />
+            <BtnForm btnName="Criar conta" isLoading={isLoading} />
           </div>
         </div>
       </form>
