@@ -7,6 +7,7 @@ import BtnForm from "../btn-form/btn-form";
 import { UserProps } from "@/types/UserProps";
 import MsgErrorInput from "../msg-error-input/msg-error-input";
 import { validatePassword } from "@/utils/validationForm";
+import redirectForm from "@/utils/redirectForm";
 
 export default function CreateAccount() {
   const [formData, setformData] = useState<UserProps>({
@@ -75,7 +76,9 @@ export default function CreateAccount() {
         await axios.post("/api/create-users", formData);
         setIsloading(false);
         setExistingUser(false);
+
         // redirect
+        await redirectForm("/");
       } else {
         setExistingUser(true);
       }
