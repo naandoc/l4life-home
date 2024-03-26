@@ -12,8 +12,8 @@ export default function FieldLabel({
   labelName: string;
   inputType: string;
   htmlFor: string;
-  pattern: string;
-  titlePattern: string;
+  pattern?: string;
+  titlePattern?: string;
 }) {
   return (
     <div className="field-label">

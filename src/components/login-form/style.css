@@ -47,7 +47,7 @@
   justify-content: space-around;
 }
 
-.form-container form .form-box .field-inputs > * {
+.form-container form .form-box .field-inputs > *:not(.msg-error-input) {
   height: 3rem;
 }
 
