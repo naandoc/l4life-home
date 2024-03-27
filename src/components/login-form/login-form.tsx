@@ -34,18 +34,29 @@ export default function LoginForm() {
 
       const users = await axios.get("/api/users");
 
-      setIsloading(false);
+      // logic to accept login or not
+      let userLogin = false;
 
       for (const userApi of users.data) {
         if (
           userApi.username === user.username &&
           userApi.password === user.password
         ) {
-          redirectForm("/");
-        } else {
-          console.log("Usuário ou senha incorreto");
-          setLoginSuccess("Usuário ou senha incorreto");
+          userLogin = true;
+          console.log("Achei o usuário");
         }
+      }
+
+      if (userLogin) {
+        setLoginSuccess("");
+
+        setTimeout(() => {
+          redirectForm("/");
+        }, 2000);
+      } else {
+        console.log("Não foi encontrado");
+        setIsloading(false);
+        setLoginSuccess("Usuário ou senha incorreto");
       }
     } catch (error) {
       console.log("Não foi possível encontrar a API ", error);
