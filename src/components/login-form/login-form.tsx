@@ -3,21 +3,48 @@ import "@/components/login-form/style.css";
 import TitleForm from "../title-form/title-form";
 import FieldLabel from "../field-label/field-label";
 import BtnForm from "../btn-form/btn-form";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import MsgErrorInput from "../msg-error-input/msg-error-input";
 import axios from "axios";
 import redirectForm from "@/utils/redirectForm";
+import { create, get } from "@/utils/cookies";
+import Loading from "../loading/loading";
+
 export default function LoginForm() {
   interface userProps {
     username: string;
     password: string;
   }
   const [isLoading, setIsloading] = useState<boolean>(false);
+  const [isLogged, setIslogged] = useState<boolean>(true);
   const [loginSuccess, setLoginSuccess] = useState<string>("");
   const [user, setUser] = useState<userProps>({
     username: "",
     password: "",
   });
+
+  // checked if the user is logged in
+  useEffect(() => {
+    const fetchCookie = async () => {
+      const userCookie = await get();
+
+      if (!userCookie) {
+        setIslogged(false);
+        return;
+      } else {
+        // get username through cookie user
+        const users = await axios.get("/api/users");
+
+        for (const userApi of users.data) {
+          if (userCookie.value === userApi.username) {
+            redirectForm("/");
+          }
+        }
+      }
+    };
+
+    fetchCookie();
+  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser({
@@ -43,7 +70,10 @@ export default function LoginForm() {
           userApi.password === user.password
         ) {
           userLogin = true;
-          console.log("Achei o usuário");
+
+          // using cookies to save user login data
+          create({ value: user.username });
+          console.log("Achei o usuário! Cookie salvo: ", user.username);
         }
       }
 
@@ -62,8 +92,7 @@ export default function LoginForm() {
       console.log("Não foi possível encontrar a API ", error);
     }
   };
-
-  return (
+  return !isLogged ? (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
         <div className="form-box">
@@ -95,5 +124,7 @@ export default function LoginForm() {
         </div>
       </form>
     </div>
+  ) : (
+    <Loading />
   );
 }

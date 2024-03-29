@@ -1,17 +1,41 @@
 "use client";
 
 import Image from "next/image";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "@/components/header/style.css";
 import ImgLogo from "../../../../imagens/logo-pequena.png";
 import Link from "next/link";
 import { RxDropdownMenu } from "react-icons/rx";
+import { get } from "@/utils/cookies";
+import axios from "axios";
 
 export default function Header() {
-  const [subMenu, setSubMenu] = useState(false);
+  const [subMenu, setSubMenu] = useState<boolean>(false);
+  const [userLogin, setUserLogin] = useState<string>("");
+  const [isLogged, setIsLogged] = useState<boolean>(false);
 
-  const user = "Nando";
-  const isLogged = false;
+  useEffect(() => {
+    const fetchCookie = async () => {
+      const userCookie = await get();
+
+      if (!userCookie) {
+        return;
+      } else {
+        // get username through cookie user
+        const users = await axios.get("/api/users");
+
+        for (const userApi of users.data) {
+          if (userCookie.value === userApi.username) {
+            setIsLogged(true);
+            setUserLogin(userApi.name);
+            return;
+          }
+        }
+      }
+    };
+
+    fetchCookie();
+  }, []);
 
   const handleMouseEnter = useCallback(() => {
     setSubMenu((prev) => !prev);
@@ -62,7 +86,7 @@ export default function Header() {
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseEnter}
                 >
-                  {user}
+                  {userLogin}
                   <span>
                     <RxDropdownMenu />
                   </span>
