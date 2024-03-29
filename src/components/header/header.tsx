@@ -6,7 +6,7 @@ import "@/components/header/style.css";
 import ImgLogo from "../../../../imagens/logo-pequena.png";
 import Link from "next/link";
 import { RxDropdownMenu } from "react-icons/rx";
-import { get } from "@/utils/cookies";
+import { getCookie, deleteCookie } from "@/utils/cookies";
 import axios from "axios";
 
 export default function Header() {
@@ -16,7 +16,7 @@ export default function Header() {
 
   useEffect(() => {
     const fetchCookie = async () => {
-      const userCookie = await get();
+      const userCookie = await getCookie();
 
       if (!userCookie) {
         return;
@@ -40,6 +40,12 @@ export default function Header() {
   const handleMouseEnter = useCallback(() => {
     setSubMenu((prev) => !prev);
   }, [setSubMenu]);
+
+  const logout = async () => {
+    await deleteCookie();
+    console.log("Cheguei aqui");
+    location.reload();
+  };
 
   return (
     <header className="main-header">
@@ -106,7 +112,9 @@ export default function Header() {
                     <a href="">Minhas casas</a>
                   </li>
                   <li>
-                    <a href="">Sair</a>
+                    <Link href="" onClick={logout}>
+                      Sair
+                    </Link>
                   </li>
                 </ul>
               </div>

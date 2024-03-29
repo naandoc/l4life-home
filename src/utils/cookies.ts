@@ -7,11 +7,15 @@ interface setCookie {
   options?: {};
 }
 
-export async function create(dataCookie: setCookie) {
+export async function createCookie(dataCookie: setCookie) {
   cookies().set("cookieUser", dataCookie.value);
 }
 
-export async function get() {
+export async function getCookie() {
   const userCookie = cookies();
   return userCookie.get("cookieUser");
+}
+
+export async function deleteCookie() {
+  await cookies().delete("cookieUser");
 }

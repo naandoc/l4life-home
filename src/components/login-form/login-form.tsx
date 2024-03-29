@@ -7,7 +7,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import MsgErrorInput from "../msg-error-input/msg-error-input";
 import axios from "axios";
 import redirectForm from "@/utils/redirectForm";
-import { create, get } from "@/utils/cookies";
+import { createCookie, getCookie } from "@/utils/cookies";
 import Loading from "../loading/loading";
 
 export default function LoginForm() {
@@ -26,7 +26,7 @@ export default function LoginForm() {
   // checked if the user is logged in
   useEffect(() => {
     const fetchCookie = async () => {
-      const userCookie = await get();
+      const userCookie = await getCookie();
 
       if (!userCookie) {
         setIslogged(false);
@@ -72,8 +72,7 @@ export default function LoginForm() {
           userLogin = true;
 
           // using cookies to save user login data
-          create({ value: user.username });
-          console.log("Achei o usuário! Cookie salvo: ", user.username);
+          createCookie({ value: user.username });
         }
       }
 
@@ -84,7 +83,6 @@ export default function LoginForm() {
           redirectForm("/");
         }, 2000);
       } else {
-        console.log("Não foi encontrado");
         setIsloading(false);
         setLoginSuccess("Usuário ou senha incorreto");
       }
