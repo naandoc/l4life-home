@@ -16,35 +16,12 @@ export default function LoginForm() {
     password: string;
   }
   const [isLoading, setIsloading] = useState<boolean>(false);
-  const [isLogged, setIslogged] = useState<boolean>(true);
+  const [isLogged, setIslogged] = useState<boolean>(false);
   const [loginSuccess, setLoginSuccess] = useState<string>("");
   const [user, setUser] = useState<userProps>({
     username: "",
     password: "",
   });
-
-  // checked if the user is logged in
-  useEffect(() => {
-    const fetchCookie = async () => {
-      const userCookie = await getCookie();
-
-      if (!userCookie) {
-        setIslogged(false);
-        return;
-      } else {
-        // get username through cookie user
-        const users = await axios.get("/api/users");
-
-        for (const userApi of users.data) {
-          if (userCookie.value === userApi.username) {
-            redirectForm("/");
-          }
-        }
-      }
-    };
-
-    fetchCookie();
-  }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUser({
@@ -80,7 +57,7 @@ export default function LoginForm() {
         setLoginSuccess("");
 
         setTimeout(() => {
-          redirectForm("/");
+          location.reload();
         }, 2000);
       } else {
         setIsloading(false);

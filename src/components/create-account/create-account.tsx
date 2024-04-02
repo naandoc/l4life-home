@@ -76,7 +76,6 @@ export default function CreateAccount() {
         await axios.post("/api/create-users", formData);
         setIsloading(false);
         setExistingUser(false);
-
         // redirect
         await redirectForm("/");
       } else {
