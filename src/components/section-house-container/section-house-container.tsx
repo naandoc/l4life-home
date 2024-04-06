@@ -7,11 +7,11 @@ export default function SectionHouseContainer() {
     <section className="container">
       <Subtitle title="Casas disponíveis" />
       <div className="house-container">
-        <HouseCart />
-        <HouseCart />
-        <HouseCart />
-        <HouseCart />
-        <HouseCart />
+        <HouseCart address="ggrdgrd grdbdrbd 4564-1gd" />
+        <HouseCart address="ggrdgrd grdbdrbd 4564-1gd" />
+        <HouseCart address="ggrdgrd grdbdrbd 4564-1gd" />
+        <HouseCart address="ggrdgrd grdbdrbd 4564-1gd" />
+        <HouseCart address="ggrdgrd grdbdrbd 4564-1gd" />
       </div>
     </section>
   );

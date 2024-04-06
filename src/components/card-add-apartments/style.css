@@ -7,22 +7,25 @@
   align-items: center;
 }
 
-.address {
+.main-image {
   color: #fff;
   padding: 0.2em;
   background-color: #3b3a3a;
   border-radius: 8px;
-  text-decoration: underline;
   position: absolute;
   margin-top: 0.3rem;
+  cursor: pointer;
   z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem;
 }
 
 .house-cart {
   width: 100%;
   height: 100%;
   margin: 0.1em;
-  cursor: pointer;
   opacity: 0.6;
   transition: 0.8s;
   border: solid 1px var(--color-primary);
@@ -34,6 +37,7 @@
   justify-content: flex-end;
   padding: 0.4em;
   text-decoration: none;
+  cursor: auto;
 }
 .house-cart:hover {
   opacity: 1;
@@ -46,7 +50,7 @@
   font-size: 1em;
   font-weight: bolder;
   text-transform: uppercase;
-
+  cursor: pointer;
   padding: 0.6em 3.2em;
   margin-bottom: 1em;
 }

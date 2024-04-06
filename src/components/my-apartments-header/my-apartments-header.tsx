@@ -1,10 +1,14 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ImgLogo from "../../../../imagens/logo-pequena.png";
 import "@/components/my-apartments-header/style.css";
+import { usePathname } from "next/navigation";
 
 const MyApartmentsHeader = () => {
+  const pathname = usePathname();
+
   return (
     <div className="container-apartments">
       <nav className="menu-apartments">
@@ -20,15 +24,18 @@ const MyApartmentsHeader = () => {
           </div>
         </Link>
         <ul>
+          {pathname !== "/my-apartments" && (
+            <li>
+              <Link href="/my-apartments" className="main-menu-a">
+                Voltar
+              </Link>
+            </li>
+          )}
+
           <li>
-            <a href="/" className="main-menu-a">
-              Voltar
-            </a>
-          </li>
-          <li>
-            <a href="#quem-somos" className="main-menu-a">
+            <Link href="/my-apartments/add" className="main-menu-a">
               Adicionar apartamentos
-            </a>
+            </Link>
           </li>
           <li>
             <Link href="/my-apartments/remove" className="main-menu-a">

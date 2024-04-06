@@ -1,0 +1,39 @@
+.add-image-apartments-container {
+  width: 60%;
+  padding-top: 4rem;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.field-add-image-apartments {
+  display: flex;
+  width: 100%;
+  padding: 4rem 0 4rem 4rem;
+  background-color: inherit;
+  gap: 1rem;
+  align-items: center;
+  font-size: 1.3rem;
+  color: var(--bg-secondary);
+  font-weight: 700;
+}
+
+.field-add-image-apartments input {
+  color: var(--bg-secondary);
+  font-weight: 700;
+}
+
+.selected-images-container {
+  width: 100%;
+  padding: 4rem 0 4rem 4rem;
+  background-color: #fff;
+  min-height: 20rem;
+  border-top: 1px solid var(--border-main);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.img-card-house-container {
+  padding-top: 1rem;
+}
