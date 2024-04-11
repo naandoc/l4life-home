@@ -11,6 +11,7 @@
   border-radius: 4px;
   box-shadow: 0px 2px 6px #132235;
 
+  user-select: none;
   background-size: cover;
   background-position: center;
 }

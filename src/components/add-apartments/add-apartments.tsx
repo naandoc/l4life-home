@@ -1,16 +1,12 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, MouseEventHandler, useEffect, useState } from "react";
 import "@/components/add-apartments/style.css";
 import Subtitle from "../subtitle/subtitle";
 import CardAddApartments from "../card-add-apartments/card-add-apartments";
 
 const AddApartments = () => {
   const [imgs, setImgs] = useState<string[]>([]);
-
-  useEffect(() => {
-    console.log(imgs);
-  }, [imgs]);
 
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
@@ -24,7 +20,20 @@ const AddApartments = () => {
         filesReader.readAsDataURL(file);
       });
     }
-    console.log(imgs);
+  };
+
+  const removeImage = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target;
+    const cardTarget = document.querySelectorAll(
+      ".inf"
+    ) as NodeListOf<HTMLDivElement>;
+
+    cardTarget.forEach((card) => {
+      if (card === target) {
+        const cardSelect = card.parentElement?.parentElement as HTMLElement;
+        if (cardSelect) cardSelect.remove();
+      }
+    });
   };
 
   return (
@@ -43,14 +52,14 @@ const AddApartments = () => {
           {imgs.length > 0 && <Subtitle title="Selecione as imagens" />}
           <div className="img-card-house-container">
             {imgs.map((img, index) => (
-              <CardAddApartments key={index} urlImage={img} />
+              <CardAddApartments
+                removeImg={removeImage}
+                key={index}
+                urlImage={img}
+              />
             ))}
           </div>
         </div>
-
-        {/* {imgs.map((img) => (
-          <img key={img} src={img} />
-        ))} */}
       </div>
     </div>
   );
