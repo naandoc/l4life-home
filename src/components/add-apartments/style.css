@@ -36,4 +36,8 @@
 
 .img-card-house-container {
   padding-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+  justify-content: center;
 }

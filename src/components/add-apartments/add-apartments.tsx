@@ -1,19 +1,22 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import "@/components/add-apartments/style.css";
 import Subtitle from "../subtitle/subtitle";
 import CardAddApartments from "../card-add-apartments/card-add-apartments";
 
 const AddApartments = () => {
   const [imgs, setImgs] = useState<string[]>([]);
+
+  useEffect(() => {
+    console.log(imgs);
+  }, [imgs]);
+
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
-
-    console.log(fileList);
-
     if (fileList) {
       Array.from(fileList).forEach((file) => {
+        // verify if img exist
         const filesReader = new FileReader();
         filesReader.onload = (e) => {
           setImgs((prevImg) => [...prevImg, e.target?.result as string]);
@@ -21,6 +24,7 @@ const AddApartments = () => {
         filesReader.readAsDataURL(file);
       });
     }
+    console.log(imgs);
   };
 
   return (
@@ -36,13 +40,11 @@ const AddApartments = () => {
       </div>
       <div className="selected-images-container">
         <div className="selected-images">
-          <Subtitle title="Selecione as imagens" />
+          {imgs.length > 0 && <Subtitle title="Selecione as imagens" />}
           <div className="img-card-house-container">
-            <CardAddApartments address="4587fd fdp 555-74" />
-            <CardAddApartments address="4587fd fdp 555-74" />
-            <CardAddApartments address="4587fd fdp 555-74" />
-            <CardAddApartments address="4587fd fdp 555-74" />
-            <CardAddApartments address="4587fd fdp 555-74" />
+            {imgs.map((img, index) => (
+              <CardAddApartments key={index} urlImage={img} />
+            ))}
           </div>
         </div>
 

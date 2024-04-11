@@ -1,4 +1,4 @@
-import HouseCart from "../house-cart/house-cart";
+import HouseCart from "../house-card/house-card";
 import Subtitle from "../subtitle/subtitle";
 import "./style.css";
 

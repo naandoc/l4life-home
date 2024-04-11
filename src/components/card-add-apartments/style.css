@@ -1,10 +1,21 @@
-.house-cart-container {
+.house-card-container {
   width: 18em;
   height: 18em;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  opacity: 0.8;
+  transition: 0.8s;
+  border: solid 1px var(--color-primary);
+  border-radius: 4px;
+  box-shadow: 0px 2px 6px #132235;
+
+  background-size: cover;
+  background-position: center;
+}
+.house-card-container:hover {
+  opacity: 1;
 }
 
 .main-image {
@@ -22,15 +33,10 @@
   gap: 0.45rem;
 }
 
-.house-cart {
+.house-card {
   width: 100%;
   height: 100%;
   margin: 0.1em;
-  opacity: 0.6;
-  transition: 0.8s;
-  border: solid 1px var(--color-primary);
-  border-radius: 4px;
-  box-shadow: 0px 2px 6px #132235;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,14 +45,12 @@
   text-decoration: none;
   cursor: auto;
 }
-.house-cart:hover {
-  opacity: 1;
-}
 
 .inf {
   border: solid 1px var(--border-main);
   border-radius: 3em;
-  color: #000;
+  color: #fff;
+  background-color: #3b3a3a;
   font-size: 1em;
   font-weight: bolder;
   text-transform: uppercase;
