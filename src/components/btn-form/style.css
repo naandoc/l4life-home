@@ -1,0 +1,13 @@
+.btn-form {
+  color: var(--bg-primary);
+  background-color: var(--color-form-btn);
+  border: none;
+  cursor: pointer;
+  width: 14rem;
+  font-size: 1.2rem;
+  padding: 0.6rem 0.2rem;
+  transition: all 0.8s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import "@/components/btn-form/style.css";
 
 export default function BtnForm({
   btnName,
@@ -8,7 +9,10 @@ export default function BtnForm({
   isLoading: boolean;
 }) {
   return (
-    <button type="submit" className={`${isLoading ? "btn-loading" : ""}`}>
+    <button
+      type="submit"
+      className={`${isLoading ? "btn-loading" : ""} btn-form`}
+    >
       <p>{isLoading ? "" : btnName}</p>
     </button>
   );

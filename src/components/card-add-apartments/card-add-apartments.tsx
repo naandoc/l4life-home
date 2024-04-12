@@ -2,7 +2,7 @@ import "@/components/card-add-apartments/style.css";
 
 interface CardAddApartmentsProps {
   urlImage: string;
-  removeImg: (e: React.MouseEvent<HTMLDivElement>) => void;
+  removeImg: (e: React.MouseEvent<HTMLDivElement>, url: string) => void;
 }
 
 export default function CardAddApartments({

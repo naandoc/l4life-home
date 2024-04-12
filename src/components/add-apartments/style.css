@@ -23,6 +23,12 @@
   font-weight: 700;
 }
 
+.selected-images {
+  display: flex;
+  flex-direction: column;
+  width: 82%;
+}
+
 .selected-images-container {
   width: 100%;
   padding: 4rem 0 4rem 4rem;
@@ -40,4 +46,12 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0.4rem;
   justify-content: center;
+}
+
+.div-btn-add-apartments {
+  margin-top: 2rem;
+  width: 82%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
