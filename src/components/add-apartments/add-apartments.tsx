@@ -1,11 +1,18 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { v4 as uuid } from "uuid";
+import { v2 as cloudinary } from "cloudinary";
+import { Cloudinary } from "@cloudinary/url-gen";
 import "@/components/add-apartments/style.css";
 import Subtitle from "../subtitle/subtitle";
 import CardAddApartments from "../card-add-apartments/card-add-apartments";
 import BtnForm from "../btn-form/btn-form";
+import { cloudinaryUpload } from "@/utils/cloudinary";
+
+const App = () => {
+  const cld = new Cloudinary({ cloud: { cloudName: "dxwjgxvox" } });
+};
 
 const AddApartments = () => {
   const [imgs, setImgs] = useState<{ id: string; url: string }[]>([]);
@@ -36,6 +43,14 @@ const AddApartments = () => {
     }
   };
 
+  const addImgs = () => {
+    imgs.forEach((img) => {
+      const { url, id } = img;
+
+      cloudinaryUpload({ url, id });
+    });
+  };
+
   return (
     <div className="add-image-apartments-container">
       <div className="field-add-image-apartments">
@@ -62,7 +77,11 @@ const AddApartments = () => {
         </div>
         {imgs.length > 0 && (
           <div className="div-btn-add-apartments">
-            <BtnForm btnName="Adicionar apartamentos" isLoading={false} />
+            <BtnForm
+              handleSubmit={addImgs}
+              btnName="Adicionar apartamentos"
+              isLoading={false}
+            />
           </div>
         )}
       </div>
